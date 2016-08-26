@@ -16,7 +16,9 @@ export class ChatComponent implements OnInit {
     isNewUser: boolean;
 
     constructor(public userService: UserService,
-                public messageService: MessageService) {}
+                public messageService: MessageService) {
+        this.userService.getUsers();
+    }
 
     ngOnInit(): void {
         this.userService.currentUser.subscribe((user: User) => {

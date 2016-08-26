@@ -15,7 +15,6 @@ var UsersComponent = (function () {
     function UsersComponent(userService, messageService) {
         this.userService = userService;
         this.messageService = messageService;
-        this.userService.getUsers();
     }
     UsersComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -18,6 +18,7 @@ var ChatComponent = (function () {
     function ChatComponent(userService, messageService) {
         this.userService = userService;
         this.messageService = messageService;
+        this.userService.getUsers();
     }
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -15,7 +15,9 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var testing_3 = require('@angular/common/testing');
 var app_component_1 = require('./app.component');
-var home_component_1 = require('./home/home.component');
+var user_service_1 = require('./services/user.service');
+var messages_service_1 = require('./services/messages.service');
+var http_1 = require('@angular/http');
 var TestComponent = (function () {
     function TestComponent() {
     }
@@ -29,35 +31,26 @@ var TestComponent = (function () {
     ], TestComponent);
     return TestComponent;
 }());
-var config = [
-    { path: '', component: home_component_1.HomeComponent },
-];
-// TODO: Use ROUTER_FAKE_PROVIDERS when it's available
 describe('AppComponent', function () {
     beforeEach(function () {
         testing_1.addProviders([
             router_1.RouterOutletMap,
+            user_service_1.UserService,
+            messages_service_1.MessageService,
+            http_1.Http,
+            http_1.HTTP_PROVIDERS,
             { provide: common_1.LocationStrategy, useClass: testing_3.SpyLocation },
             { provide: router_1.UrlSerializer, useClass: router_1.DefaultUrlSerializer },
             { provide: common_1.Location, useClass: testing_3.SpyLocation },
-            {
-                provide: router_1.Router,
-                useFactory: function (resolver, urlSerializer, outletMap, location, injector) {
-                    var r = new router_1.Router(TestComponent, resolver, urlSerializer, outletMap, location, injector, config);
-                    return r;
-                },
-                deps: [core_1.ComponentResolver, router_1.UrlSerializer, router_1.RouterOutletMap, common_1.Location, core_1.Injector]
-            },
-            { provide: router_1.ActivatedRoute, useFactory: function (r) { return r.routerState.root; }, deps: [router_1.Router] },
         ]);
     });
-    it('should have brand Angular 2 Starter', testing_1.async(testing_1.inject([testing_2.TestComponentBuilder], function (tsb) {
+    it('should have brand Ruben & Joe\'s Chat app', testing_1.async(testing_1.inject([testing_2.TestComponentBuilder], function (tsb) {
         tsb.createAsync(TestComponent).then(function (fixture) {
             fixture.detectChanges();
             var compiled = fixture.debugElement.nativeElement;
             expect(compiled).toBeDefined();
-            expect(compiled.querySelector('a.navbar-brand'))
-                .toContainText('Angular 2 Starter');
+            expect(compiled.querySelector('as-chat')).toBeDefined();
+            expect(compiled.querySelector('a.navbar-brand')).toContainText('Ruben & Joe\'s Chat app');
         });
     })));
 });
