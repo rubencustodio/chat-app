@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-sm-8">
+        <as-messages [currentUser]="currentUser"></as-messages>
+    </div>
+    <div class="col-sm-4">
+        <as-users></as-users>
+    </div>
+</div>
+<div class="row">
+    <form action="">
+        <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder="Enter chat here..." #newtext (keyup)="beginTyping(newtext)"/>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary" (click)="submitMessage(newtext)">Submit</button>
+        </div>
+    </form>
+</div>

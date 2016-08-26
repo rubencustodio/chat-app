@@ -1,0 +1,10 @@
+<h3>Users</h3>
+<div class="panel panel-default users">
+    <div >
+        <ul>
+            <li *ngFor="let user of users" [class.active]="isSelected(user)" >
+                <a (click)="setCurrentUser(user)">{{user.name}} <span *ngIf="currentUser.id == user.id && isTyping"> typing....</span></a>
+            </li>
+        </ul>
+    </div>
+</div>

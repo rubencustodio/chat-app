@@ -1,0 +1,11 @@
+<h3>Messages</h3>
+<div class="panel panel-default messages">
+    <div class="panel-body">
+        <ul>
+            <li *ngFor="let message of messages">
+                {{message.author.name}} : {{message.text}}
+            </li>
+            <li *ngIf="userTyping">{{currentUser.name}} is typing...</li>
+        </ul>
+    </div>
+</div>
