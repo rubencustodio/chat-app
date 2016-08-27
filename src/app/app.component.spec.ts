@@ -1,10 +1,4 @@
 import {
-    RouterOutletMap,
-    UrlSerializer,
-    DefaultUrlSerializer
-} from '@angular/router';
-
-import {
     async,
     inject,
     addProviders,
@@ -13,8 +7,6 @@ import {
 
 import { TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
-import { Location, LocationStrategy } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { AppComponent } from './app.component';
 import { UserService } from './services/user.service';
 import { MessageService } from './services/messages.service';
@@ -32,14 +24,10 @@ class TestComponent {
 describe('AppComponent', () => {
     beforeEach(() => {
         addProviders([
-            RouterOutletMap,
             UserService,
             MessageService,
             Http,
-            HTTP_PROVIDERS,
-            {provide: LocationStrategy, useClass: SpyLocation},
-            {provide: UrlSerializer, useClass: DefaultUrlSerializer},
-            {provide: Location, useClass: SpyLocation},
+            HTTP_PROVIDERS
         ]);
     });
 

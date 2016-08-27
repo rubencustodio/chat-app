@@ -8,12 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var router_1 = require('@angular/router');
 var testing_1 = require('@angular/core/testing');
 var testing_2 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var testing_3 = require('@angular/common/testing');
 var app_component_1 = require('./app.component');
 var user_service_1 = require('./services/user.service');
 var messages_service_1 = require('./services/messages.service');
@@ -34,14 +31,10 @@ var TestComponent = (function () {
 describe('AppComponent', function () {
     beforeEach(function () {
         testing_1.addProviders([
-            router_1.RouterOutletMap,
             user_service_1.UserService,
             messages_service_1.MessageService,
             http_1.Http,
-            http_1.HTTP_PROVIDERS,
-            { provide: common_1.LocationStrategy, useClass: testing_3.SpyLocation },
-            { provide: router_1.UrlSerializer, useClass: router_1.DefaultUrlSerializer },
-            { provide: common_1.Location, useClass: testing_3.SpyLocation },
+            http_1.HTTP_PROVIDERS
         ]);
     });
     it('should have brand Ruben & Joe\'s Chat app', testing_1.async(testing_1.inject([testing_2.TestComponentBuilder], function (tsb) {

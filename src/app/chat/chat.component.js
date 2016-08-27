@@ -18,37 +18,35 @@ var ChatComponent = (function () {
     function ChatComponent(userService, messageService) {
         this.userService = userService;
         this.messageService = messageService;
+        this.chat = {
+            text: ''
+        };
         this.userService.getUsers();
     }
-    ChatComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.currentUser.subscribe(function (user) {
-            _this.currentUser = user;
-            _this.isNewUser = true;
-        });
-    };
-    ChatComponent.prototype.submitMessage = function (text) {
-        var message = new message_model_1.Message({
-            author: this.currentUser,
-            text: text.value
-        });
-        if (text.value.length > 0) {
+    ChatComponent.prototype.submitMessage = function (valid) {
+        if (valid) {
+            var message = new message_model_1.Message({
+                author: this.currentUser(),
+                text: this.chat.text
+            });
             this.messageService.create(message);
+            this.endTyping();
         }
-        this.endTyping(text);
     };
-    ChatComponent.prototype.beginTyping = function (text) {
-        if (text.value.length > 0) {
+    ChatComponent.prototype.checkTyping = function () {
+        if (this.chat.text.length > 0) {
             this.messageService.setPersonTyping(true);
-            this.isNewUser = false;
         }
-        if (text.value.length === 0) {
-            this.endTyping(text);
+        if (this.chat.text.length === 0) {
+            this.endTyping();
         }
     };
-    ChatComponent.prototype.endTyping = function (text) {
-        text.value = '';
-        this.messageService.removePersonTyping();
+    ChatComponent.prototype.endTyping = function () {
+        this.chat.text = '';
+        this.messageService.setPersonTyping(false);
+    };
+    ChatComponent.prototype.currentUser = function () {
+        return this.userService.currentUser;
     };
     ChatComponent = __decorate([
         core_1.Component({

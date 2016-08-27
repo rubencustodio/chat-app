@@ -11,49 +11,44 @@ import { User } from './user.model';
     templateUrl: 'app/chat/chat.html',
     directives: [UsersComponent, MessagesComponent]
 })
-export class ChatComponent implements OnInit {
-    currentUser: User;
-    isNewUser: boolean;
+export class ChatComponent {
+    chat = {
+        text: ''
+    };
 
     constructor(public userService: UserService,
                 public messageService: MessageService) {
         this.userService.getUsers();
     }
 
-    ngOnInit(): void {
-        this.userService.currentUser.subscribe((user: User) => {
-                this.currentUser = user;
-            this.isNewUser = true;
+    submitMessage(valid) {
+        if (valid) {
+            let message = new Message({
+                author: this.currentUser(),
+                text: this.chat.text
+            });
 
-        });
-    }
-
-    submitMessage(text: HTMLInputElement): void {
-        let message = new Message({
-            author: this.currentUser,
-            text: text.value
-        });
-
-        if (text.value.length > 0) {
             this.messageService.create(message);
+            this.endTyping();
         }
-
-        this.endTyping(text);
     }
 
-    beginTyping(text: HTMLInputElement): void {
-        if (text.value.length > 0) {
+    checkTyping() {
+        if (this.chat.text.length > 0) {
             this.messageService.setPersonTyping(true);
-            this.isNewUser = false;
         }
 
-        if (text.value.length === 0 ) {
-            this.endTyping(text);
+        if (this.chat.text.length === 0 ) {
+            this.endTyping();
         }
     }
 
-    endTyping(text: HTMLInputElement): void {
-        text.value = '';
-        this.messageService.removePersonTyping();
+    endTyping(){
+        this.chat.text = '';
+        this.messageService.setPersonTyping(false);
+    }
+
+    currentUser() {
+        return this.userService.currentUser;
     }
 }

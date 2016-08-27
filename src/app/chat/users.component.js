@@ -12,9 +12,9 @@ var core_1 = require('@angular/core');
 var user_service_1 = require('../services/user.service');
 var messages_service_1 = require('../services/messages.service');
 var UsersComponent = (function () {
-    function UsersComponent(userService, messageService) {
+    function UsersComponent(userService, _messageService) {
         this.userService = userService;
-        this.messageService = messageService;
+        this._messageService = _messageService;
     }
     UsersComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -24,18 +24,18 @@ var UsersComponent = (function () {
                 _this.setCurrentUser(_this.users[0]);
             }
         });
-        this.userService.currentUser.subscribe(function (user) {
-            _this.currentUser = user;
-        });
-        this.messageService.userTyping$.subscribe(function (isTyping) {
-            _this.isTyping = isTyping;
-        });
     };
     UsersComponent.prototype.setCurrentUser = function (user) {
         this.userService.setCurrentUser(user);
     };
     UsersComponent.prototype.isSelected = function (user) {
-        return this.currentUser.id === user.id;
+        return this.currentUser().id === user.id;
+    };
+    UsersComponent.prototype.isTyping = function () {
+        return this._messageService.userTyping;
+    };
+    UsersComponent.prototype.currentUser = function () {
+        return this.userService.currentUser;
     };
     UsersComponent = __decorate([
         core_1.Component({

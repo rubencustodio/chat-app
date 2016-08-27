@@ -10,11 +10,9 @@ import {User} from './user.model';
 
 export class UsersComponent implements OnInit {
     users: User[];
-    currentUser: User;
-    isTyping: boolean;
 
     constructor(public userService: UserService,
-                public messageService: MessageService) {
+                private _messageService: MessageService) {
     }
 
     ngOnInit(): void {
@@ -24,14 +22,6 @@ export class UsersComponent implements OnInit {
                 this.setCurrentUser(this.users[0]);
             }
         });
-
-        this.userService.currentUser.subscribe((user: User) => {
-            this.currentUser = user;
-        });
-
-        this.messageService.userTyping$.subscribe((isTyping: boolean) => {
-            this.isTyping = isTyping;
-        });
     }
 
     setCurrentUser(user: User): void {
@@ -39,7 +29,15 @@ export class UsersComponent implements OnInit {
     }
 
     isSelected(user: User) {
-        return this.currentUser.id === user.id;
+        return this.currentUser().id === user.id;
+    }
+
+    isTyping() {
+        return this._messageService.userTyping;
+    }
+
+    currentUser() {
+        return this.userService.currentUser;
     }
 
 }

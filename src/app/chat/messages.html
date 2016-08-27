@@ -2,10 +2,10 @@
 <div class="panel panel-default messages">
     <div class="panel-body">
         <ul>
-            <li *ngFor="let message of messages">
+            <li *ngFor="let message of messages$ | async">
                 {{message.author.name}} : {{message.text}}
             </li>
-            <li *ngIf="userTyping">{{currentUser.name}} is typing...</li>
+            <li *ngIf="isTyping()">{{currentUser().name}} is typing...</li>
         </ul>
     </div>
 </div>

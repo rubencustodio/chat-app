@@ -5,7 +5,7 @@ import {Http} from '@angular/http';
 
 @Injectable()
 export class UserService {
-    currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+    currentUser: User;
     dataStore: {
         users: User[];
     };
@@ -20,8 +20,8 @@ export class UserService {
     }
 
     setCurrentUser(newUser: User): void {
-        if (this.currentUser.getValue() !== newUser) {
-            this.currentUser.next(newUser);
+        if (this.currentUser !== newUser) {
+            this.currentUser = newUser;
         }
     }
 

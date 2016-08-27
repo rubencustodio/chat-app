@@ -15,15 +15,14 @@ var http_1 = require('@angular/http');
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
-        this.currentUser = new Rx_1.BehaviorSubject(null);
         this._users$ = new Rx_1.BehaviorSubject(null);
         this.dataStore = {
             users: []
         };
     }
     UserService.prototype.setCurrentUser = function (newUser) {
-        if (this.currentUser.getValue() !== newUser) {
-            this.currentUser.next(newUser);
+        if (this.currentUser !== newUser) {
+            this.currentUser = newUser;
         }
     };
     UserService.prototype.getUsers = function () {

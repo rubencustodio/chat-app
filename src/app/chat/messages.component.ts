@@ -1,29 +1,28 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {MessageService} from '../services/messages.service';
 import {Message} from './message.model';
+import {Observable} from 'rxjs/Observable';
 import {User} from './user.model';
+import {UserService} from "../services/user.service";
 
 @Component({
     selector: 'as-messages',
     templateUrl: 'app/chat/messages.html'
 })
 
-export class MessagesComponent implements OnInit {
-    messages: Message[];
-    userTyping: boolean;
-    @Input() currentUser: User;
+export class MessagesComponent {
+    messages$: Observable<Message[]>;
 
-    constructor(public messageService: MessageService) {
-
+    constructor(private _messageService: MessageService,
+                public userService: UserService) {
+        this.messages$ = this._messageService.messages$;
     }
 
-    ngOnInit() {
-        this.messageService.messages$.subscribe((messages) => {
-            this.messages = messages;
-        });
+    isTyping() {
+        return this._messageService.userTyping;
+    }
 
-        this.messageService.userTyping$.subscribe((isTyping) => {
-            this.userTyping = isTyping;
-        });
+    currentUser() {
+        return this.userService.currentUser;
     }
 }

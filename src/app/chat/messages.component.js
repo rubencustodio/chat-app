@@ -10,30 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var messages_service_1 = require('../services/messages.service');
-var user_model_1 = require('./user.model');
+var user_service_1 = require("../services/user.service");
 var MessagesComponent = (function () {
-    function MessagesComponent(messageService) {
-        this.messageService = messageService;
+    function MessagesComponent(_messageService, userService) {
+        this._messageService = _messageService;
+        this.userService = userService;
+        this.messages$ = this._messageService.messages$;
     }
-    MessagesComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.messageService.messages$.subscribe(function (messages) {
-            _this.messages = messages;
-        });
-        this.messageService.userTyping$.subscribe(function (isTyping) {
-            _this.userTyping = isTyping;
-        });
+    MessagesComponent.prototype.isTyping = function () {
+        return this._messageService.userTyping;
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', user_model_1.User)
-    ], MessagesComponent.prototype, "currentUser", void 0);
+    MessagesComponent.prototype.currentUser = function () {
+        return this.userService.currentUser;
+    };
     MessagesComponent = __decorate([
         core_1.Component({
             selector: 'as-messages',
             templateUrl: 'app/chat/messages.html'
         }), 
-        __metadata('design:paramtypes', [messages_service_1.MessageService])
+        __metadata('design:paramtypes', [messages_service_1.MessageService, user_service_1.UserService])
     ], MessagesComponent);
     return MessagesComponent;
 }());

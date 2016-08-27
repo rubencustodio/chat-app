@@ -10,15 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
-var user_service_1 = require('./user.service');
 var MessageService = (function () {
-    function MessageService(_userService) {
-        this._userService = _userService;
+    function MessageService() {
+        this.userTyping = false;
         this._messages$ = new Rx_1.BehaviorSubject(null);
-        this._userTyping$ = new Rx_1.BehaviorSubject(null);
         this.dataStore = {
-            messages: [],
-            userTyping: false
+            messages: []
         };
     }
     ;
@@ -27,10 +24,7 @@ var MessageService = (function () {
         this._messages$.next(this.dataStore.messages);
     };
     MessageService.prototype.setPersonTyping = function (isTyping) {
-        this._userTyping$.next(isTyping);
-    };
-    MessageService.prototype.removePersonTyping = function () {
-        this._userTyping$.next(false);
+        this.userTyping = isTyping;
     };
     Object.defineProperty(MessageService.prototype, "messages$", {
         get: function () {
@@ -39,16 +33,9 @@ var MessageService = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MessageService.prototype, "userTyping$", {
-        get: function () {
-            return this._userTyping$.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
     MessageService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [])
     ], MessageService);
     return MessageService;
 }());

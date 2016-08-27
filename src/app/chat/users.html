@@ -3,7 +3,7 @@
     <div >
         <ul>
             <li *ngFor="let user of users" [class.active]="isSelected(user)" >
-                <a (click)="setCurrentUser(user)">{{user.name}} <span *ngIf="currentUser.id == user.id && isTyping"> typing....</span></a>
+                <a (click)="setCurrentUser(user)">{{user.name}} <span *ngIf="currentUser().id == user.id && isTyping()"> typing....</span></a>
             </li>
         </ul>
     </div>

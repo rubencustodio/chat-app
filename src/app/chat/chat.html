@@ -1,18 +1,18 @@
 <div class="row">
     <div class="col-sm-8">
-        <as-messages [currentUser]="currentUser"></as-messages>
+        <as-messages></as-messages>
     </div>
     <div class="col-sm-4">
         <as-users></as-users>
     </div>
 </div>
 <div class="row">
-    <form action="">
+    <form #f="ngForm" (ngSubmit)="submitMessage(f.valid)" novalidate>
         <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="Enter chat here..." #newtext (keyup)="beginTyping(newtext)"/>
+            <input type="text" class="form-control" placeholder="Enter chat here..." [(ngModel)]="chat.text" name="newText" (keyup)="checkTyping(chat.text)"/>
         </div>
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-primary" (click)="submitMessage(newtext)">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
 </div>
