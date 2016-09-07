@@ -1,9 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component } from '@angular/core';
 import {MessageService} from '../services/messages.service';
 import {Message} from './message.model';
 import {Observable} from 'rxjs/Observable';
-import {User} from './user.model';
-import {UserService} from "../services/user.service";
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'as-messages',

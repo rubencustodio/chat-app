@@ -1,10 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { UsersComponent } from './users.component';
 import { MessagesComponent } from './messages.component';
 import { UserService } from '../services/user.service';
 import { MessageService } from '../services/messages.service';
 import { Message } from './message.model';
-import { User } from './user.model';
 
 @Component({
     selector: 'as-chat',
@@ -43,7 +42,7 @@ export class ChatComponent {
         }
     }
 
-    endTyping(){
+    endTyping() {
         this.chat.text = '';
         this.messageService.setPersonTyping(false);
     }
